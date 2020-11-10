@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Sound Toggle</string>
+
+    <string name="step1">Step 1</string>
+    <string name="request_permission">Request Permission</string>
+    <string name="permission_text">The \'change do not disturb\' permission is required in order to switch between the different volume modes.</string>
+    <string name="step2">Step 2</string>
+    <string name="tutorial_button">Watch Tutorial</string>
+    <string name="skip_button">Skip Tutorial</string>
+    <string name="tutorial_text">This tutorial will help you understand how this APP works! You can always watch the tutorial again from the menu.</string>
+    <string name="tutorial">Tutorial</string>
+    <string name="donate">Donate</string>
+    <string name="permission_granted">You can set the tile from the quick settings or you can watch the tutorial again!</string>
+</resources>
