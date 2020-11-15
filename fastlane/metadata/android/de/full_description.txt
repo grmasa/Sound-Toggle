@@ -1,0 +1,1 @@
+<i>Sound Toggle</i> bietet Dir eine Kachel für die Schnelleinstellungen, mit der Du den Audio-Modus Deines Androiden einfach zwischen Normal, Vibration und Ruhemodus umschalten kannst.

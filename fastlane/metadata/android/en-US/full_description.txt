@@ -1,0 +1,1 @@
+<i>Sound Toggle</i> provides you with a QuickSettings tile to  quickly switch the audio mode of your device between Normal, Vibrate and Silent.
