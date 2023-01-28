@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.grmasa.soundtoggle">
+    xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
     <application
@@ -13,7 +12,8 @@
         android:theme="@style/Theme.SoundToggle"
         android:fullBackupContent="@xml/backup_descriptor"
         tools:ignore="AllowBackup">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,7 +21,8 @@
             </intent-filter>
         </activity>
         <activity android:label="@string/app_name" android:name=".Tutorial" />
-        <service android:label="@string/app_name" android:icon="@drawable/ic_audio_vol" android:name=".SoundToggleService" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+        <service android:label="@string/app_name" android:icon="@drawable/ic_audio_vol" android:name=".SoundToggleService" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE"/>
             </intent-filter>
