@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
             done.setVisibility(View.VISIBLE);
             step_text.setVisibility(View.GONE);
         });
-
         sharedpreferences = getSharedPreferences("prefs", Context.MODE_PRIVATE);
     }
 
