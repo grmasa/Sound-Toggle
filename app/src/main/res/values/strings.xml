@@ -11,4 +11,5 @@
     <string name="tutorial">Tutorial</string>
     <string name="donate">Donate</string>
     <string name="permission_granted">You can set the tile from the quick settings or you can watch the tutorial again!</string>
+    <string name="exit">Exit</string>
 </resources>

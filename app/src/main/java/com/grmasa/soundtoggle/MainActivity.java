@@ -114,6 +114,9 @@ public class MainActivity extends AppCompatActivity {
         if(id == R.id.tutorial){
             Intent myIntent = new Intent(this, Tutorial.class);
             startActivity(myIntent);
+        }else if (id == R.id.action_exit) {
+            finish();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
