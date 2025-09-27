@@ -5,11 +5,17 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Icon;
 import android.media.AudioManager;
 import android.os.Vibrator;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class SoundToggleService extends TileService {
 
@@ -50,25 +56,58 @@ public class SoundToggleService extends TileService {
 
     public void onClick() {
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        if (notificationManager.isNotificationPolicyAccessGranted()) {
-            int ringerMode = getAudioManager().getRingerMode();
-            int nextMode = -1;
-            if (ringerMode == 0) {
-                vibrate();
-                nextMode = 2;
-            } else if (ringerMode == 1) {
-                nextMode = 0;
-            } else if (ringerMode == 2) {
-                vibrate();
-                nextMode = 1;
-            }
-            getAudioManager().setRingerMode(nextMode);
-        } else {
+        if (!notificationManager.isNotificationPolicyAccessGranted()) {
             Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            this.startActivity(intent);
+            startActivity(intent);
+            return;
         }
 
+        int currentMode = getAudioManager().getRingerMode();
+        Set<Integer> excludedModes = loadExcludedModes();
+
+        int nextMode = getNextAllowedRingerMode(currentMode, excludedModes);
+        if (nextMode != currentMode) {
+            if (nextMode == AudioManager.RINGER_MODE_VIBRATE || nextMode == AudioManager.RINGER_MODE_NORMAL) {
+                vibrate();
+            }
+            getAudioManager().setRingerMode(nextMode);
+        }
+        updateTile();
+    }
+
+    private Set<Integer> loadExcludedModes() {
+        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        Set<String> excludedStrings = prefs.getStringSet("excluded_modes", new HashSet<>());
+
+        Set<Integer> excluded = new HashSet<>();
+        for (String s : excludedStrings) {
+            switch (s) {
+                case "NORMAL" -> excluded.add(AudioManager.RINGER_MODE_NORMAL);
+                case "VIBRATE" -> excluded.add(AudioManager.RINGER_MODE_VIBRATE);
+                case "SILENT" -> excluded.add(AudioManager.RINGER_MODE_SILENT);
+            }
+        }
+        return excluded;
+    }
+
+    private int getNextAllowedRingerMode(int currentMode, Set<Integer> excluded) {
+        List<Integer> allModes = Arrays.asList(
+                AudioManager.RINGER_MODE_NORMAL,
+                AudioManager.RINGER_MODE_VIBRATE,
+                AudioManager.RINGER_MODE_SILENT
+        );
+
+        int currentIndex = allModes.indexOf(currentMode);
+        int size = allModes.size();
+
+        for (int i = 1; i <= size; i++) {
+            int nextMode = allModes.get((currentIndex + i) % size);
+            if (!excluded.contains(nextMode)) {
+                return nextMode;
+            }
+        }
+        return currentMode;
     }
 
     public void onStartListening() {

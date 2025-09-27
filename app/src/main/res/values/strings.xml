@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Sound Toggle</string>
-
     <string name="step1">Step 1</string>
     <string name="request_permission">Request Permission</string>
     <string name="permission_text">The \'change do not disturb\' permission is required in order to switch between the different volume modes.</string>
@@ -12,4 +11,10 @@
     <string name="donate">Donate</string>
     <string name="permission_granted">You can set the tile from the quick settings or you can watch the tutorial again!</string>
     <string name="exit">Exit</string>
+    <string name="options">Options</string>
+    <string name="exclude_modes_skip_when_toggling">Exclude Modes (skip when toggling):</string>
+    <string name="normal">Normal</string>
+    <string name="vibrate">Vibrate</string>
+    <string name="silent">Silent</string>
+    <string name="save">Save</string>
 </resources>

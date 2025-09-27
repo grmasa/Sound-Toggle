@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="mode_names">
+        <item>Normal</item>
+        <item>Vibrate</item>
+        <item>Silent</item>
+        <!-- etc -->
+    </string-array>
+
+    <string-array name="mode_values">
+        <item>NORMAL</item>
+        <item>VIBRATE</item>
+        <item>SILENT</item>
+        <!-- etc -->
+    </string-array>
+
+    <!-- default: empty set (none excluded) -->
+    <string-array name="default_excluded_modes">
+        <!-- no items, or list the ones you want by default -->
+    </string-array>
+
+</resources>

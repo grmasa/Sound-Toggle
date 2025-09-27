@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.preference.MultiSelectListPreference
+        android:defaultValue="@array/default_excluded_modes"
+        android:dialogTitle="Exclude modes"
+        android:entries="@array/mode_names"
+        android:entryValues="@array/mode_values"
+        android:key="pref_excluded_modes"
+        android:summary="Select which sound modes to skip"
+        android:title="Exclude modes" />
+</androidx.preference.PreferenceScreen>

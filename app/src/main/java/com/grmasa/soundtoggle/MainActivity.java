@@ -111,7 +111,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if(id == R.id.tutorial){
+        if(id == R.id.options){
+            Intent intent = new Intent(this, OptionsActivity.class);
+            startActivity(intent);
+        }else if(id == R.id.tutorial){
             Intent myIntent = new Intent(this, Tutorial.class);
             startActivity(myIntent);
         }else if (id == R.id.action_exit) {

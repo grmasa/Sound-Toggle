@@ -57,5 +57,42 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="@string/tutorial_button" />
+    <LinearLayout
+        android:id="@+id/exclusion_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:paddingTop="24dp">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Exclude modes (skip when toggling):"
+            android:textStyle="bold" />
+
+        <CheckBox
+            android:id="@+id/cb_exclude_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Normal" />
+
+        <CheckBox
+            android:id="@+id/cb_exclude_vibrate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vibrate" />
+
+        <CheckBox
+            android:id="@+id/cb_exclude_silent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Silent" />
+
+        <Button
+            android:id="@+id/btn_save_exclusions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save Exclusions" />
+    </LinearLayout>
 </LinearLayout>
