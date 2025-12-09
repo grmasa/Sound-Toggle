@@ -71,9 +71,41 @@ public class SoundToggleService extends TileService {
             if (nextMode == AudioManager.RINGER_MODE_VIBRATE || nextMode == AudioManager.RINGER_MODE_NORMAL) {
                 vibrate();
             }
-            getAudioManager().setRingerMode(nextMode);
+            int option_silent = loadOption();
+            if (option_silent==1 &&nextMode == AudioManager.RINGER_MODE_SILENT) {
+                getAudioManager().setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                saveCurrentRingerMode(AudioManager.RINGER_MODE_SILENT);
+
+                notificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_PRIORITY);
+                int allowedCategories =
+                        NotificationManager.Policy.PRIORITY_CATEGORY_ALARMS |
+                                NotificationManager.Policy.PRIORITY_CATEGORY_MEDIA;
+
+                notificationManager.setNotificationPolicy(
+                        new NotificationManager.Policy(
+                                allowedCategories, // Minimal allowed interruptions
+                                NotificationManager.Policy.PRIORITY_SENDERS_ANY,
+                                NotificationManager.Policy.PRIORITY_SENDERS_ANY,
+                                0
+                        )
+                );
+            } else {
+                getAudioManager().setRingerMode(nextMode);
+                saveCurrentRingerMode(nextMode);
+            }
         }
         updateTile();
+    }
+
+    private int loadOption() {
+        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        return prefs.getInt("toggle_option", 0);
+    }
+
+    private void saveCurrentRingerMode(int mode) {
+        SharedPreferences.Editor editor = getSharedPreferences("prefs", MODE_PRIVATE).edit();
+        editor.putInt("last_ringer_mode", mode);
+        editor.apply();
     }
 
     private Set<Integer> loadExcludedModes() {
@@ -110,7 +142,19 @@ public class SoundToggleService extends TileService {
         return currentMode;
     }
 
+    private void restoreRingerMode() {
+        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        int lastMode;
+        if (prefs.contains("last_ringer_mode")) {
+            lastMode = prefs.getInt("last_ringer_mode", AudioManager.RINGER_MODE_NORMAL);
+        } else {
+            lastMode = AudioManager.RINGER_MODE_NORMAL;
+        }
+        getAudioManager().setRingerMode(lastMode);
+    }
+
     public void onStartListening() {
+        restoreRingerMode();
         updateTile();
         registerReceiver(this.broadcastReceiver, new IntentFilter("android.media.RINGER_MODE_CHANGED"));
     }
