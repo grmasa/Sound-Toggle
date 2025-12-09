@@ -17,4 +17,5 @@
     <string name="vibrate">Vibrate</string>
     <string name="silent">Silent</string>
     <string name="save">Save</string>
+    <string name="switch_txt">If enabled, \'Silent\' mode will show pop-ups and badges without sound or vibration.</string>
 </resources>
