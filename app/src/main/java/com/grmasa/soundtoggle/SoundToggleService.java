@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Icon;
 import android.media.AudioManager;
+import android.os.Build;
 import android.os.Vibrator;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
@@ -72,18 +73,21 @@ public class SoundToggleService extends TileService {
                 vibrate();
             }
             int option_silent = loadOption();
-            if (option_silent==1 &&nextMode == AudioManager.RINGER_MODE_SILENT) {
+            if (option_silent == 1 && nextMode == AudioManager.RINGER_MODE_SILENT) {
                 getAudioManager().setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                 saveCurrentRingerMode(AudioManager.RINGER_MODE_SILENT);
 
                 notificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_PRIORITY);
                 int allowedCategories =
-                        NotificationManager.Policy.PRIORITY_CATEGORY_ALARMS |
-                                NotificationManager.Policy.PRIORITY_CATEGORY_MEDIA;
+                        0;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    allowedCategories = NotificationManager.Policy.PRIORITY_CATEGORY_ALARMS |
+                            NotificationManager.Policy.PRIORITY_CATEGORY_MEDIA;
+                }
 
                 notificationManager.setNotificationPolicy(
                         new NotificationManager.Policy(
-                                allowedCategories, // Minimal allowed interruptions
+                                allowedCategories,
                                 NotificationManager.Policy.PRIORITY_SENDERS_ANY,
                                 NotificationManager.Policy.PRIORITY_SENDERS_ANY,
                                 0
@@ -154,12 +158,27 @@ public class SoundToggleService extends TileService {
     }
 
     public void onStartListening() {
-        restoreRingerMode();
         updateTile();
         registerReceiver(this.broadcastReceiver, new IntentFilter("android.media.RINGER_MODE_CHANGED"));
     }
 
     public void onStopListening() {
         unregisterReceiver(this.broadcastReceiver);
+    }
+
+    public static class BootReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
+                Intent serviceIntent = new Intent(context, SoundToggleService.class);
+                context.startService(serviceIntent);
+            }
+        }
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        restoreRingerMode();
+        return START_NOT_STICKY;
     }
 }
