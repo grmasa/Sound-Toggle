@@ -19,10 +19,11 @@ import java.util.Set;
 public class OptionsActivity extends AppCompatActivity {
 
     private CheckBox cbExcludeNormal, cbExcludeVibrate, cbExcludeSilent;
-    private MaterialSwitch swVisualSilentMode;
+    private MaterialSwitch swVisualSilentMode, swVisualTile;
 
     private static final String KEY_EXCLUDED_MODES = "excluded_modes";
     private static final String KEY_TOGGLE_OPTION = "toggle_option";
+    private static final String dKEY_TOGGLE_TILE_OPTION = "toggle_tile_option";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,7 @@ public class OptionsActivity extends AppCompatActivity {
         cbExcludeVibrate = findViewById(R.id.cb_exclude_vibrate);
         cbExcludeSilent = findViewById(R.id.cb_exclude_silent);
         swVisualSilentMode = findViewById(R.id.sw_visual_silent_mode);
+        swVisualTile = findViewById(R.id.sw_visual_tile_mode);
 
         Button btnSave = findViewById(R.id.btn_save_exclusions);
 
@@ -57,6 +59,8 @@ public class OptionsActivity extends AppCompatActivity {
 
         int option = prefs.getInt(KEY_TOGGLE_OPTION, 0);
         swVisualSilentMode.setChecked(option == 1);
+        int optionTile = prefs.getInt(dKEY_TOGGLE_TILE_OPTION, 0);
+        swVisualTile.setChecked(optionTile == 1);
     }
 
     private void savePreferences() {
@@ -70,6 +74,8 @@ public class OptionsActivity extends AppCompatActivity {
 
         int option = swVisualSilentMode.isChecked() ? 1 : 0;
         editor.putInt(KEY_TOGGLE_OPTION, option);
+        int optionTile = swVisualTile.isChecked() ? 1 : 0;
+        editor.putInt(dKEY_TOGGLE_TILE_OPTION, optionTile);
 
         editor.apply();
     }

@@ -44,6 +44,26 @@
         android:layout_height="wrap_content"
         android:text="" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:text="@string/visual_mode_title"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="8dp"
+        android:text="@string/visual_mode_summary"
+        android:textSize="12sp" />
+
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/sw_visual_tile_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/visual_mode_switch_label" />
+
     <Button
         android:id="@+id/btn_save_exclusions"
         android:layout_width="wrap_content"

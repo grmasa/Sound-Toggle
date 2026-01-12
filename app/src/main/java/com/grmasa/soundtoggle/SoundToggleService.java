@@ -48,6 +48,13 @@ public class SoundToggleService extends TileService {
         qsTile.setIcon(Icon.createWithResource(this, setIcon()));
         qsTile.updateTile();
         qsTile.setState(2);
+        int option_TileMode = loadTileOption();
+        if (option_TileMode == 1 && (ringerMode == 1 || ringerMode == 0)) {
+            qsTile.setState(Tile.STATE_INACTIVE);
+        } else {
+            qsTile.setState(Tile.STATE_ACTIVE);
+        }
+
     }
 
     private void vibrate() {
@@ -104,6 +111,11 @@ public class SoundToggleService extends TileService {
     private int loadOption() {
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         return prefs.getInt("toggle_option", 0);
+    }
+
+    private int loadTileOption() {
+        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        return prefs.getInt("toggle_tile_option", 0);
     }
 
     private void saveCurrentRingerMode(int mode) {

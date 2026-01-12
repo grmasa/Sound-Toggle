@@ -18,4 +18,7 @@
     <string name="silent">Silent</string>
     <string name="save">Save</string>
     <string name="switch_txt">If enabled, \'Silent\' mode will show pop-ups and badges without sound or vibration.</string>
+    <string name="visual_mode_title">Tile visual behavior</string>
+    <string name="visual_mode_summary">When enabled, the tile is active only in Normal Sound mode</string>
+    <string name="visual_mode_switch_label">Highlight normal sound mode only</string>
 </resources>
