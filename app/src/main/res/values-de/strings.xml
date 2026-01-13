@@ -20,5 +20,5 @@
     <string name="switch_txt">Wenn aktiviert, werden Pop-ups und Symbole im Modus \'Stumm\' ohne Ton und Vibration angezeigt.</string>
     <string name="visual_mode_title">Visuelles Verhalten der Kachel</string>
     <string name="visual_mode_summary">Wenn aktiviert, dann wird die Kachel nur im Modus \'Normal\' als aktiv angezeigt</string>
-    <string name="visual_mode_switch_label">Nur den Modus \'Normal\ hervorheben</string>
+    <string name="visual_mode_switch_label">Nur den Modus \'Normal\' hervorheben</string>
 </resources>
