@@ -42,7 +42,7 @@ public class SoundToggleService extends TileService {
         Tile qsTile = getQsTile();
         int ringerMode = getAudioManager().getRingerMode();
         String tileLabel = ringerMode != 0 ? ringerMode != 1 ? ringerMode != 2
-                ? "Unknown" : "Normal" : "Vibrate" : "Silent";
+                ? this.getString(R.string.unknown) : this.getString(R.string.normal) : this.getString(R.string.vibrate) : this.getString(R.string.silent);
         qsTile.setContentDescription(tileLabel);
         qsTile.setLabel(tileLabel);
         qsTile.setIcon(Icon.createWithResource(this, setIcon()));

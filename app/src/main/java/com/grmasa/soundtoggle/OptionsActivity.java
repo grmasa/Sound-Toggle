@@ -44,7 +44,7 @@ public class OptionsActivity extends AppCompatActivity {
 
         btnSave.setOnClickListener(v -> {
             savePreferences();
-            Toast.makeText(this, "Options saved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, this.getString(R.string.options_saved), Toast.LENGTH_SHORT).show();
             finish();
         });
     }

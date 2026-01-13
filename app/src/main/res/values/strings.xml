@@ -21,4 +21,6 @@
     <string name="visual_mode_title">Tile visual behavior</string>
     <string name="visual_mode_summary">When enabled, the tile is active only in Normal Sound mode</string>
     <string name="visual_mode_switch_label">Highlight normal sound mode only</string>
+    <string name="unknown">Unknown</string>
+    <string name="options_saved">Options saved</string>
 </resources>
