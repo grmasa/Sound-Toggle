@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Sound Toggle</string>
+    <string name="step1">Βήμα 1</string>
+    <string name="request_permission">Αίτημα Άδειας</string>
+    <string name="permission_text">Η άδεια «αλλαγή λειτουργίας Μην ενοχλείτε» απαιτείται για την εναλλαγή μεταξύ των διαφορετικών λειτουργιών έντασης.</string>
+    <string name="step2">Βήμα 2</string>
+    <string name="tutorial_button">Παρακολούθηση Οδηγού</string>
+    <string name="skip_button">Παράλειψη Οδηγού</string>
+    <string name="tutorial_text">Αυτός ο οδηγός θα σας βοηθήσει να κατανοήσετε πώς λειτουργεί αυτή η εφαρμογή! Μπορείτε πάντα να παρακολουθήσετε ξανά τον οδηγό από το μενού.</string>
+    <string name="tutorial">Οδηγός</string>
+    <string name="donate">Δωρεά</string>
+    <string name="permission_granted">Μπορείτε να προσθέσετε το πλακίδιο από τις γρήγορες ρυθμίσεις ή να παρακολουθήσετε ξανά τον οδηγό!</string>
+    <string name="exit">Έξοδος</string>
+    <string name="options">Ρυθμίσεις</string>
+    <string name="exclude_modes_skip_when_toggling">Εξαίρεση λειτουργιών (παράλειψη κατά την εναλλαγή):</string>
+    <string name="normal">Κανονικό</string>
+    <string name="vibrate">Δόνηση</string>
+    <string name="silent">Αθόρυβο</string>
+    <string name="save">Αποθήκευση</string>
+    <string name="switch_txt">Όταν είναι ενεργό, η λειτουργία «Αθόρυβο» θα εμφανίζει αναδυόμενα παράθυρα και σήματα χωρίς ήχο ή δόνηση.</string>
+    <string name="visual_mode_title">Οπτική συμπεριφορά πλακιδίου</string>
+    <string name="visual_mode_summary">Όταν είναι ενεργό, το πλακίδιο είναι ενεργό μόνο στη λειτουργία Κανονικού Ήχου</string>
+    <string name="visual_mode_switch_label">Επισήμανση μόνο της λειτουργίας κανονικού ήχου</string>
+    <string name="unknown">Άγνωστο</string>
+    <string name="options_saved">Οι ρυθμίσεις αποθηκεύτηκαν</string>
+</resources>
