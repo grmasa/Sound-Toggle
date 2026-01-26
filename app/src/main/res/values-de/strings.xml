@@ -21,4 +21,6 @@
     <string name="visual_mode_title">Visuelles Verhalten der Kachel</string>
     <string name="visual_mode_summary">Wenn aktiviert, dann wird die Kachel nur im Modus \'Normal\' als aktiv angezeigt</string>
     <string name="visual_mode_switch_label">Nur den Modus \'Normal\' hervorheben</string>
+    <string name="unknown">Unbekannt</string>
+    <string name="options_saved">Einstellungen gespeichert</string>
 </resources>
