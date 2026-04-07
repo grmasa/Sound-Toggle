@@ -58,7 +58,9 @@ public class MainActivity extends AppCompatActivity {
             step_text.setVisibility(View.GONE);
         });
         sharedpreferences = getSharedPreferences("prefs", Context.MODE_PRIVATE);
-        FreeDroidWarn.showWarningOnUpgrade(this, 36);
+        new Thread(() -> {
+            FreeDroidWarn.showWarningOnUpgrade(this, 36);
+        }).start();
     }
 
     public void onResume() {
