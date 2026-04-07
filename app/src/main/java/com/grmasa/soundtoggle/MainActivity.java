@@ -15,6 +15,8 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.woheller69.freeDroidWarn.FreeDroidWarn;
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView done, step, step_text;
@@ -56,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
             step_text.setVisibility(View.GONE);
         });
         sharedpreferences = getSharedPreferences("prefs", Context.MODE_PRIVATE);
+        FreeDroidWarn.showWarningOnUpgrade(this, 36);
     }
 
     public void onResume() {
