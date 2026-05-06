@@ -59,7 +59,9 @@ public class MainActivity extends AppCompatActivity {
         });
         sharedpreferences = getSharedPreferences("prefs", Context.MODE_PRIVATE);
         new Thread(() -> {
-            FreeDroidWarn.showWarningOnUpgrade(this, 36);
+            runOnUiThread(() -> {
+                FreeDroidWarn.showWarningOnUpgrade(this, 36);
+            });
         }).start();
     }
 
