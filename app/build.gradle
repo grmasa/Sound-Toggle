@@ -29,15 +29,15 @@ android {
     }
     namespace 'com.grmasa.soundtoggle'
 }
-allprojects {
-    repositories {
-        maven { url 'https://jitpack.io' }
+    allprojects {
+        repositories {
+            maven { url 'https://jitpack.io' }
+        }
     }
-}
 
-dependencies {
-    implementation 'com.google.android.material:material:1.13.0'
-    implementation 'com.github.woheller69:FreeDroidWarn:V1.11'
+    dependencies {
+        implementation 'com.google.android.material:material:1.13.0'
+        implementation 'com.github.woheller69:FreeDroidWarn:V1.12'
 }
 configurations.configureEach {
     resolutionStrategy.eachDependency { DependencyResolveDetails details ->
