@@ -5,6 +5,9 @@
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -27,7 +30,14 @@
         </activity>
         <activity android:name=".Tutorial" />
         <activity android:name=".OptionsActivity" />
-
+        <service
+            android:name=".RingerService"
+            android:foregroundServiceType="specialUse"
+            android:exported="false">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Toggling system ringer and audio profiles safely from quick settings." />
+        </service>
         <service
             android:name=".SoundToggleService"
             android:exported="true"

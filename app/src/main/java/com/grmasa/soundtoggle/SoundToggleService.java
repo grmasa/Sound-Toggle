@@ -1,6 +1,7 @@
 package com.grmasa.soundtoggle;
 
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -35,14 +36,14 @@ public class SoundToggleService extends TileService {
     private int setIcon() {
         int ringerMode = getAudioManager().getRingerMode();
         return ringerMode != 0 ? ringerMode != 1
-                ? R.drawable.ic_audio_vol : R.drawable.ic_audio_ring_notif_vibrate : R.drawable.ic_audio_vol_mute;
+                                 ? R.drawable.ic_audio_vol : R.drawable.ic_audio_ring_notif_vibrate : R.drawable.ic_audio_vol_mute;
     }
 
     public void updateTile() {
         Tile qsTile = getQsTile();
         int ringerMode = getAudioManager().getRingerMode();
         String tileLabel = ringerMode != 0 ? ringerMode != 1 ? ringerMode != 2
-                ? this.getString(R.string.unknown) : this.getString(R.string.normal) : this.getString(R.string.vibrate) : this.getString(R.string.silent);
+                                                               ? this.getString(R.string.unknown) : this.getString(R.string.normal) : this.getString(R.string.vibrate) : this.getString(R.string.silent);
         qsTile.setContentDescription(tileLabel);
         qsTile.setLabel(tileLabel);
         qsTile.setIcon(Icon.createWithResource(this, setIcon()));
@@ -63,6 +64,11 @@ public class SoundToggleService extends TileService {
     }
 
     public void onClick() {
+        Context context = getApplicationContext();
+        Intent serviceIntent = new Intent(context, RingerService.class);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CINNAMON_BUN) {
+            context.startForegroundService(serviceIntent);
+        }
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         if (!notificationManager.isNotificationPolicyAccessGranted()) {
             Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
@@ -100,6 +106,33 @@ public class SoundToggleService extends TileService {
                                 0
                         )
                 );
+            } else if (nextMode == AudioManager.RINGER_MODE_SILENT) {
+                if (notificationManager.isNotificationPolicyAccessGranted()) {
+                    //Force the System UI to drop the Vibrate icon
+                    if (getAudioManager().getRingerMode() == AudioManager.RINGER_MODE_VIBRATE) {
+                        getAudioManager().setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                    }
+                    getAudioManager().setRingerMode(nextMode);
+
+                } else {
+                    Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                    PendingIntent pendingIntent = PendingIntent.getActivity(
+                            this,
+                            1,
+                            intent,
+                            PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT
+                    );
+
+                    try {
+                        pendingIntent.send();
+                    } catch (PendingIntent.CanceledException e) {
+                        e.printStackTrace();
+                    }
+                }
+                saveCurrentRingerMode(nextMode);
+
             } else {
                 getAudioManager().setRingerMode(nextMode);
                 saveCurrentRingerMode(nextMode);
