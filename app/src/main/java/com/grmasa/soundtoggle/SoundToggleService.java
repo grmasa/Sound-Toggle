@@ -64,11 +64,7 @@ public class SoundToggleService extends TileService {
     }
 
     public void onClick() {
-        Context context = getApplicationContext();
-        Intent serviceIntent = new Intent(context, RingerService.class);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CINNAMON_BUN) {
-            context.startForegroundService(serviceIntent);
-        }
+        startForegroundService();
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         if (!notificationManager.isNotificationPolicyAccessGranted()) {
             Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
@@ -194,12 +190,21 @@ public class SoundToggleService extends TileService {
     private void restoreRingerMode() {
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         int lastMode;
+        startForegroundService();
         if (prefs.contains("last_ringer_mode")) {
             lastMode = prefs.getInt("last_ringer_mode", AudioManager.RINGER_MODE_NORMAL);
         } else {
             lastMode = AudioManager.RINGER_MODE_NORMAL;
         }
         getAudioManager().setRingerMode(lastMode);
+    }
+
+    public void startForegroundService(){
+        Context context = getApplicationContext();
+        Intent serviceIntent = new Intent(context, RingerService.class);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CINNAMON_BUN) {
+            context.startForegroundService(serviceIntent);
+        }
     }
 
     public void onStartListening() {
