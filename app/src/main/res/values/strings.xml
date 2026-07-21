@@ -23,4 +23,6 @@
     <string name="visual_mode_switch_label">Highlight normal sound mode only</string>
     <string name="unknown">Unknown</string>
     <string name="options_saved">Options saved</string>
+    <string name="ask_access">Please find Sound Toggle and allow access</string>
+    <string name="error_settings">Cannot open Settings on this device.</string>
 </resources>
