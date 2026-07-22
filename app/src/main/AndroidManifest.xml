@@ -19,25 +19,29 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SoundToggle"
         tools:ignore="AllowBackup">
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".Tutorial" />
         <activity android:name=".OptionsActivity" />
+
+        <!-- Foreground Service (Consolidated into single declaration) -->
         <service
             android:name=".RingerService"
-            android:foregroundServiceType="specialUse"
-            android:exported="false">
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
             <property
                 android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
-                android:value="Toggling system ringer and audio profiles safely from quick settings." />
+                android:value="Maintains background volume listener" />
         </service>
+        <!-- Quick Settings Tile Service -->
         <service
             android:name=".SoundToggleService"
             android:exported="true"
@@ -48,12 +52,7 @@
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>
         </service>
-        <receiver
-            android:name=".SoundToggleService$BootReceiver"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
+
+
     </application>
 </manifest>
