@@ -59,7 +59,7 @@ public class OptionsActivity extends AppCompatActivity {
 
         int option = prefs.getInt(KEY_TOGGLE_OPTION, 0);
         swVisualSilentMode.setChecked(option == 1);
-        int optionTile = prefs.getInt(dKEY_TOGGLE_TILE_OPTION, 0);
+        int optionTile = prefs.getInt(dKEY_TOGGLE_TILE_OPTION, 1);
         swVisualTile.setChecked(optionTile == 1);
     }
 
