@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ServiceInfo;
 import android.os.Build;
 import android.os.IBinder;
 
@@ -18,40 +19,58 @@ public class RingerService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        createNotificationChannel();
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentTitle("SoundToggle Active")
-                .setContentText("Updating audio profile...")
-                .setSmallIcon(R.drawable.ic_audio_vol)
-                .setPriority(NotificationCompat.PRIORITY_LOW)
-                .build();
+        createNotificationChannel();
 
-        startForeground(NOTIFICATION_ID, notification);
-        performRingerToggle();
-        stopSelf();
+        if (intent != null) {
+            int fromMode = intent.getIntExtra("from_mode", -1);
+            int toMode = intent.getIntExtra("to_mode", -1);
+            executeAudioSwitch(fromMode, toMode);
+        }
+        demoteAndExit();
 
         return START_NOT_STICKY;
     }
 
-    private void performRingerToggle() {
-    }
 
     private void createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if (nm != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(
                     CHANNEL_ID,
                     "SoundToggle Service Channel",
                     NotificationManager.IMPORTANCE_LOW
             );
-            NotificationManager manager = getSystemService(NotificationManager.class);
-            if (manager != null) {
-                manager.createNotificationChannel(channel);
-            }
+            nm.createNotificationChannel(channel);
         }
+
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setContentTitle("Switching sound mode")
+                .setSmallIcon(android.R.drawable.ic_lock_silent_mode_off)
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .build();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            startForeground(NOTIFICATION_ID, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE);
+        } else {
+            startForeground(NOTIFICATION_ID, notification);
+        }
+    }
+
+    private void executeAudioSwitch(int fromMode, int toMode) {
+        SoundToggleService service = SoundToggleService.getActiveInstance();
+        if (service != null && fromMode >= 0 && toMode >= 0) {
+            service.switchMode(fromMode, toMode);
+            service.updateTile();
+        }
+    }
+
+    private void demoteAndExit() {
+        stopForeground(Service.STOP_FOREGROUND_REMOVE);
+        stopSelf();
     }
 
     @Override
