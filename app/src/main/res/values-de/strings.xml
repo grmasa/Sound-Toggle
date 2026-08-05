@@ -23,4 +23,6 @@
     <string name="visual_mode_switch_label">Nur den Modus \'Normal\' hervorheben</string>
     <string name="unknown">Unbekannt</string>
     <string name="options_saved">Einstellungen gespeichert</string>
+    <string name="ask_access">Bitte finde Sound Toggle und erlaube den Zugriff</string>
+    <string name="error_settings">Die Einstellungen können auf diesem Gerät nicht geöffnet werden.</string>
 </resources>
