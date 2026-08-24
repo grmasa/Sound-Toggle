@@ -3,6 +3,7 @@ package com.grmasa.soundtoggle;
 import android.app.NotificationManager;
 import android.media.AudioManager;
 import android.os.Build;
+import android.provider.Settings;
 
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -48,7 +49,7 @@ public final class SoundModes {
                         AudioManager am = service.getAudioManager();
                         am.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
                         int maxVolume = am.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-                        am.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume / 2, 0);
+                        //am.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume / 2, 0);
                         service.vibrate();
                     },
                     false, 1
@@ -91,6 +92,6 @@ public final class SoundModes {
                     },
                     false, 0
             ),
-            
+
     };
 }
