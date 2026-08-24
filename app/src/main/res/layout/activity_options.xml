@@ -14,23 +14,13 @@
         android:text="@string/exclude_modes_skip_when_toggling"
         android:textStyle="bold" />
 
-    <CheckBox
-        android:id="@+id/cb_exclude_normal"
+    <LinearLayout
+        android:id="@+id/ll_exclude_modes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/normal" />
-
-    <CheckBox
-        android:id="@+id/cb_exclude_vibrate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/vibrate" />
-
-    <CheckBox
-        android:id="@+id/cb_exclude_silent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/silent" />
+        android:orientation="vertical">
+        <!-- Checkboxes will be added here dynamically -->
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
