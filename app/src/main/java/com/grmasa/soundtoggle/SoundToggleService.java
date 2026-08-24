@@ -95,20 +95,19 @@ public class SoundToggleService extends TileService {
         AudioManager am = getAudioManager();
         if (from >= 0) {
             SoundModes.Mode fromMode = SoundModes.MODES[from];
-            updateTile();
             // Restore the volume only if the mode and/or volume weren't manually changed in the meantime.
             if (fromMode.restoreVolume && !wasModeManuallyChanged(from)) {
                 am.setStreamVolume(AudioManager.STREAM_MUSIC, modeStates[from].mediaVolume, 0);
             }
         }
-        updateTile();
         if (to >= 0) {
             SoundModes.Mode toMode = SoundModes.MODES[to];
             if (toMode.restoreVolume) {
                 modeStates[to].mediaVolume = am.getStreamVolume(AudioManager.STREAM_MUSIC);
-            }updateTile();
+            }
             toMode.activate.accept(this);
-        }updateTile();
+        }
+        updateTile();
         lastMode = to;
         lastModeState.mediaVolume = am.getStreamVolume(AudioManager.STREAM_MUSIC);
         saveState();
